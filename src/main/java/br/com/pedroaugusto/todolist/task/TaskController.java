@@ -51,10 +51,15 @@ public class TaskController {
 
   @PutMapping("/{id}")
   public ResponseEntity update(@RequestBody TaskModel task, HttpServletRequest request, @PathVariable UUID id) {
+    final UUID userId = (UUID) request.getAttribute("userId");
     TaskModel taskOnDatabase = this.taskRepository.findById(id).orElse(null);
 
     if (taskOnDatabase == null) {
       return ResponseEntity.notFound().build();
+    }
+
+    if (!taskOnDatabase.getUserId().equals(userId)) {
+      return ResponseEntity.badRequest().body("Usuário não tem permissão para alterar essa tarefa.");
     }
 
     Utils.copyNonNullableProperties(task, taskOnDatabase);
