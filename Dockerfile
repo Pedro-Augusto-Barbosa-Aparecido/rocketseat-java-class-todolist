@@ -16,7 +16,7 @@ RUN mvn clean install
 EXPOSE 8080
 
 # generate application file friendly
-COPY --from=build /target/todolist-1.0.0.jar app.jar
+COPY --from=build /target/todolist-0.0.1.jar app.jar
 
 # run application
 ENTRYPOINT ["java", "-jar", "app.jar"]
