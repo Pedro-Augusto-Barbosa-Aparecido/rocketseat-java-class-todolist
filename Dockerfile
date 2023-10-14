@@ -1,4 +1,5 @@
 FROM ubuntu:latest AS build
+FROM openjdk:17-jdk-slim
 
 # install dependencies
 RUN apt-get update
