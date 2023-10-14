@@ -16,6 +16,7 @@ FROM openjdk:17-jdk-slim
 # expose port 8080
 EXPOSE 8080
 
+RUN ls /target/
 # generate application file friendly
 COPY --from=build /target/todolist-1.0.0.jar app.jar
 
