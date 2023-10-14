@@ -1,5 +1,4 @@
 FROM ubuntu:latest AS build
-FROM openjdk:17-jdk-slim
 
 # install dependencies
 RUN apt-get update
@@ -12,11 +11,13 @@ COPY . .
 RUN apt-get install maven -y
 RUN mvn clean install
 
+FROM openjdk:17-jdk-slim
+
 # expose port 8080
 EXPOSE 8080
 
 # generate application file friendly
-COPY --from=build /target/todolist-0.0.1.jar app.jar
+COPY --from=build /target/todolist-1.0.0.jar app.jar
 
 # run application
 ENTRYPOINT ["java", "-jar", "app.jar"]
